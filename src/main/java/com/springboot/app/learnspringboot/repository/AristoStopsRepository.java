@@ -20,5 +20,5 @@ public interface AristoStopsRepository  extends PagingAndSortingRepository<Arist
     @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "3000")})
     List<AristoStop> getAllByAccountNumber(String accountId);
     AristoStop getById(int id);
-    //AristoStop update(int accountId);
+
 }
