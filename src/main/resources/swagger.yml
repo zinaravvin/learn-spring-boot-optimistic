@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  description: "Provide Aristo Stop Transactions"
+  version: "1.0.0"
+  title: "Aristo Stop Transactions"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "ravviz@nytimes.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: "AristoStopTransactions"
+    description: "All HD Stop txns"
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+  - name: "HDStops"
+    description: "Provide all HD stop transactions"
+  - name: "aristoStops"
+    description: "Operations about HD transactions"
+    externalDocs:
+      description: "Find out more about our store"
+      url: "http://swagger.io"
+paths:
+  /aristo/stops/{accountId}:
+    post:
+      tags:
+        - "hdStop"
+      summary: "Get all stop transactions per account"
+      description: ""
+      operationId: "getAristoStopsTransactions"
+      parameters:
+        - name: accountId
+          in: path
+          description: "HD account number"
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectHDStopTransResponse'
+        405:
+          description: "Invalid input"
+components:
+  schemas:
+    SelectHDStopTransResponse:
+      required:
+        - transactions
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectHDStopTransResponseData'
+    SelectHDStopTransResponseData:
+      required:
+        - accountId
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectHDStopTransResponsError'
+
+    SelectHDStopTransResponsError:
+      required:
+        - error_code
+        - error_msg
+        - original_transaction_id
+        - product_id
+      type: object
+      properties:
+        product_id:
+          type: string
+        error_code:
+          type: integer
+          format: int32
+        error_msg:
+          type: string
+        original_transaction_id:
+          type: string
+
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

@@ -1,0 +1,32 @@
+version: '3'
+services:
+  aristo-db:
+    image: postgres:13.1-alpine
+    container_name: aristo-db
+    expose:
+      - 5434
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+      TZ: 'America/New_York'
+      PGTZ: 'America/New_York'
+    volumes:
+      - "./database:/docker-entrypoint-initdb.d"
+
+  learn-spring-boot-app:
+    image: 'learn-spring-boot:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    container_name: learn-spring-boot-app
+
+    environment:
+      ENV: 'local'
+      SPRING_DATASOURCE_URL: jdbc:postgresql://aristo-db:5434/postgres
+
+volumes:
+  database_data:
+    driver: local

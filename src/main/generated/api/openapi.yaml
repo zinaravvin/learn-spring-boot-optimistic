@@ -1,0 +1,126 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: ravviz@nytimes.com
+  description: Provide Aristo Stop Transactions
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Aristo Stop Transactions
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: /
+tags:
+- description: All HD Stop txns
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+  name: AristoStopTransactions
+- description: Provide all HD stop transactions
+  name: HDStops
+- description: Operations about HD transactions
+  externalDocs:
+    description: Find out more about our store
+    url: http://swagger.io
+  name: aristoStops
+paths:
+  /aristo/stops/{accountId}:
+    post:
+      operationId: getAristoStopsTransactions
+      parameters:
+      - description: HD account number
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectHDStopTransResponse'
+        "405":
+          description: Invalid input
+      summary: Get all stop transactions per account
+      tags:
+      - hdStop
+      x-accepts: application/json
+components:
+  schemas:
+    SelectHDStopTransResponse:
+      example:
+        transactions:
+        - errors:
+          - error_msg: error_msg
+            original_transaction_id: original_transaction_id
+            product_id: product_id
+            error_code: 0
+          - error_msg: error_msg
+            original_transaction_id: original_transaction_id
+            product_id: product_id
+            error_code: 0
+        - errors:
+          - error_msg: error_msg
+            original_transaction_id: original_transaction_id
+            product_id: product_id
+            error_code: 0
+          - error_msg: error_msg
+            original_transaction_id: original_transaction_id
+            product_id: product_id
+            error_code: 0
+      properties:
+        transactions:
+          items:
+            $ref: '#/components/schemas/SelectHDStopTransResponseData'
+          type: array
+      required:
+      - transactions
+      type: object
+    SelectHDStopTransResponseData:
+      example:
+        errors:
+        - error_msg: error_msg
+          original_transaction_id: original_transaction_id
+          product_id: product_id
+          error_code: 0
+        - error_msg: error_msg
+          original_transaction_id: original_transaction_id
+          product_id: product_id
+          error_code: 0
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/SelectHDStopTransResponsError'
+          type: array
+      required:
+      - accountId
+    SelectHDStopTransResponsError:
+      example:
+        error_msg: error_msg
+        original_transaction_id: original_transaction_id
+        product_id: product_id
+        error_code: 0
+      properties:
+        product_id:
+          type: string
+        error_code:
+          format: int32
+          type: integer
+        error_msg:
+          type: string
+        original_transaction_id:
+          type: string
+      required:
+      - error_code
+      - error_msg
+      - original_transaction_id
+      - product_id
+      type: object
+

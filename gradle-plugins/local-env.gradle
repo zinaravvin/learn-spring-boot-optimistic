@@ -1,0 +1,19 @@
+import groovy.json.JsonSlurper
+
+
+    def inDrone = System.getenv("DRONE") == "true" // this check is an overkill, Drone build could not be local
+    if (!inDrone) {
+        dockerCompose {
+            useComposeFiles = ['docker-compose.yml']
+            startedServices = ['aristo-db'] // Start database only
+            stopContainers = false // Do not stop container so it can be easily reused on next run
+            captureContainersOutput = true
+            isRequiredBy(project.tasks.test)
+            exposeAsSystemProperties(project.tasks.test)
+         //   isRequiredBy(flywayMigrate)
+
+        }
+        clean.dependsOn composeDownForced
+    }
+
+
