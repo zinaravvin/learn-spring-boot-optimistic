@@ -40,6 +40,7 @@ public class AristoStop {
                 ", stopCode='" + stopCode + '\'' +
                 ", stopReason='" + stopReason + '\'' +
                 ", donationFlag='" + donationFlag + '\'' +
+                ", version='" + version + '\'' +
                 '}';
     }
 

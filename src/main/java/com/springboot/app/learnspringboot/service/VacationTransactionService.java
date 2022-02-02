@@ -10,17 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RefreshScope
-public class VacactionTransactionService {
+public class VacationTransactionService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public AristoStop save(String accountId) {
-        AristoStop aristoStop = new AristoStop();
-        aristoStop.setStopReason("VA");
-        aristoStop.setAccountNumber(accountId);
-       // aristoStop.setVersion(1);
-      //  int count = accountDao.update(aristoStop);
-       return aristoStop;
-    }
+    public AristoStop setUpVacationTransaction(AristoStop account) {
 
+        account.setStopReason("VN");
+       // aristoStop.setVersion(1);
+       return account;
+    }
+    public AristoStop setUpNonPaymentTransaction(AristoStop account) {
+        account.setStopReason("NN");
+        // aristoStop.setVersion(1);
+        return account;
+    }
 
 }
