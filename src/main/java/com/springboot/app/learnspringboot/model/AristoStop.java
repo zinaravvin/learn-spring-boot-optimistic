@@ -1,8 +1,6 @@
 package com.springboot.app.learnspringboot.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -11,6 +9,9 @@ import java.time.ZonedDateTime;
 @Data
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class AristoStop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class AristoStop {
     @Column
     private String donationFlag;
     @Version
-    private int version;
+    private Long version;
     @Override
     public String toString() {
         return "AristoStop{" +

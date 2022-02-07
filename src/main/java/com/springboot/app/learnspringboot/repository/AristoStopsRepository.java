@@ -21,8 +21,8 @@ public interface AristoStopsRepository  extends JpaRepository<AristoStop, Intege
     List<AristoStop> getAllByDonationFlagTrue();
     List<AristoStop> getAllByStartDateAfter(ZonedDateTime dateTime);
     List<AristoStop> getAllByStartDateBefore(ZonedDateTime dateTime);
-    @Transactional
-    @Lock(LockModeType.OPTIMISTIC)
+    //@Transactional
+    //@Lock(LockModeType.OPTIMISTIC)
     /*@QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "3000")})*/
     List<AristoStop> getAllByAccountNumber(String accountId);
     AristoStop getById(int id);

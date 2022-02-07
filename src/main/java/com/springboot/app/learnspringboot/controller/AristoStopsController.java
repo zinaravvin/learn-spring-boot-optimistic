@@ -24,7 +24,10 @@ public class AristoStopsController {
     @RequestMapping("/aristo/stops/{accountId}")
     public String returnTransaction(@PathVariable("accountId") final String accountId){
         TransactionService transactionService =new TransactionService();
-        transactionService.processTransaction(accountId);
-            return "ccc";
+        List<AristoStop> initialVersionNumber = repository.getAllByAccountNumber(accountId);
+        long firstVersion = initialVersionNumber.get(0).getVersion();
+         transactionService.processTransaction(accountId);
+
+        return "Demo for Optimistic lock";
     }
 }
